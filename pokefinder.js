@@ -1,13 +1,14 @@
 'use strict';
-var rp = require('request-promise');
 const {
   TypeInfo
 } = require('./TypeInfo');
+const Pokedex = require('pokedex-promise-v2');
 
 class PokeFinder {
   constructor() {
     // Object to retrieve responses to intents
     this.typeInfo = new TypeInfo();
+    this.dex = new Pokedex();
   }
 
    async findPokemon(payload) {
@@ -19,20 +20,16 @@ class PokeFinder {
     return pokemon;
   }
 
-  async typingStats(types) {
+  async typingStats(types) { //TODO: Decide which stats to send
     return await this.typeInfo.getWeakAndStrength(types);
   }
 
   pokemonBaseInfo(pokemon) {
-    return rp(`http://pokeapi.co/api/v2/pokemon/${pokemon}`, {
-      json: true
-    });
+    return this.dex.getPokemonByName(pokemon)
   }
 
   pokemonDescription(pokemon) {
-    return rp(pokemon.species.url, {
-      json: true
-    });
+    return this.dex.getPokemonSpeciesByName(pokemon.species.name)
   }
 
 }

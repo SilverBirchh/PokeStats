@@ -1,10 +1,12 @@
 // TODO: Improve this. Pull out the createTypeList() logic. CLEAN THIS UP.
 'use strict';
-var rp = require('request-promise');
 const typeInfo = require('./typeconversion');
+const Pokedex = require('pokedex-promise-v2');
 
 class TypeInfo {
-  constructor() {}
+  constructor() {
+    this.dex = new Pokedex();
+  }
 
   async getWeakAndStrength(types) {
     let typelists = []
@@ -12,9 +14,7 @@ class TypeInfo {
     let typeObject = {};
 
     for (let type of types) {
-      const typeInfo = await rp(`http://pokeapi.co/api/v2/type/${type}`, {
-        json: true
-      });
+      const typeInfo = await this.dex.getTypeByName(type);
       const typeList = this.createTypeList(typeInfo);
       const typeListTWO = this.createTypeList(typeInfo); // need a copy
       typelists.push(typeList);
