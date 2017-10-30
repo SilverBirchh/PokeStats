@@ -1,0 +1,19 @@
+{
+  "name": "PokeStats",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bootbot": "^1.0.6",
+    "config": "^1.21.0",
+    "pokedex-promise-v2": "^3.0.3",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
+  }
+}

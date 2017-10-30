@@ -1,0 +1,12 @@
+{
+  "to": {
+    "no_damage_to": 0,
+    "half_damage_to": 0.5,
+    "double_damage_to": 2
+  },
+  "from": {
+    "no_damage_from": 0,
+    "half_damage_from": 0.5,
+    "double_damage_from": 2
+  }
+}
