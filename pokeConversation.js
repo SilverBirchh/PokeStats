@@ -47,13 +47,14 @@ class PokeConversation {
     const types = pokemon.types.map(type => type.type.name);
     const name = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
     const enDexEntry = description.flavor_text_entries.filter(entry => entry.language.name === 'en');
+    const genera = description.genera.filter(entry => entry.language.name === 'en');
 
     convo.set('pokemon', pokemon);
     convo.set('name', name);
     convo.set('types', types);
 
     convo.sendGenericTemplate([{
-      title: name,
+      title: `${name} - ${genera[0].genus}`,
       subtitle: `Pokedex #: ${pokemon.id}. Type: ${types.join(' and ')}. Height: ${pokemon.height/10}m. Weight: ${pokemon.weight/10}kg.`,
       image_url: `${pokemon.sprites.front_default}`
     }]).then(() => {
