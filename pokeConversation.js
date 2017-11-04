@@ -95,7 +95,7 @@ class PokeConversation {
 
   async abilityIntent(payload, convo) {
     const ability = await this.pokeFinder.pokemonAbility(convo.get('name'))
-    this.sendIntent(stats, convo);
+    this.sendIntent(ability, convo);
   }
 }
 exports.PokeConversation = PokeConversation;

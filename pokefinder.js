@@ -15,7 +15,7 @@ class PokeFinder {
     let pokemon = {}
     const pokeName = payload.message.text.toLowerCase();
     pokemon.basic = await this.pokemonBaseInfo(pokeName);
-    pokemon.description = await this.pokemonDescription(pokemon.basic);
+    pokemon.description = await this.pokemonDescription(pokeName);
 
     return pokemon;
   }
@@ -29,23 +29,31 @@ class PokeFinder {
   }
 
   pokemonDescription(pokemon) {
-    return this.dex.getPokemonSpeciesByName(pokemon.species.name)
+    return this.dex.getPokemonSpeciesByName(pokemon)
   }
 
   async pokemonBaseStats(pokemon) {
     const pokeObj = await this.dex.getPokemonByName(pokemon.toLowerCase());
 
-    let statString = 'Base stats: \n';
+    let statString = 'Base stats: \n\n';
     pokeObj.stats.forEach((stat) => {
       const statName = stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1);
-      statString += `\t${statName}: ${stat.base_stat}\n`
+      statString += `${statName}: ${stat.base_stat}\n`
     })
 
     return statString
   }
 
-  pokemonAbility(pokemon) {
+  async pokemonAbility(pokemon) {
+    const pokeObj = await this.dex.getPokemonByName(pokemon.toLowerCase());
 
+    let abilityString = `${pokemon} can have the following abilities:\n\n`;
+    pokeObj.abilities.forEach((ability) => {
+      const name = ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1);
+      abilityString += `${name} ${(ability.is_hidden ? '(Hidden Ability)': '')}\n`
+    })
+
+    return abilityString;
   }
 
 }
