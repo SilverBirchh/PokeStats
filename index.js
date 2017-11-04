@@ -30,7 +30,7 @@ bot.on('message', (payload, chat) => {
   } else if (pokemon.includes(payload.message.text.charAt(0).toUpperCase() + payload.message.text.slice(1))) {
     pokeConversation.startConversation(payload, chat)
   } else {
-    chat.say('I\'m sorry I did not understand your request :().') // TODO: Add help response
+    chat.say('I\'m sorry I did not understand your request :(.') // TODO: Add help response
   }
 });
 

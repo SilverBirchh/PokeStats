@@ -17,6 +17,14 @@ class PokeConversation {
         pattern: ['no'],
         callback: (payload, convo) => this.endConversion(payload, convo)
       },
+      {
+        pattern: ['stats'],
+        callback: (payload, convo) => this.statsIntent(payload, convo)
+      },
+      {
+        pattern: ['ability'],
+        callback: (payload, convo) => this.abilityIntent(payload, convo)
+      },
     ];
   }
 
@@ -77,8 +85,17 @@ class PokeConversation {
 
   async typeIntent(payload, convo) {
     const types = await this.pokeFinder.typingStats(convo.get('types'))
-    console.log(types);
     this.sendIntent(types, convo);
+  }
+
+  async statsIntent(payload, convo) {
+    const stats = await this.pokeFinder.pokemonBaseStats(convo.get('name'))
+    this.sendIntent(stats, convo);
+  }
+
+  async abilityIntent(payload, convo) {
+    const ability = await this.pokeFinder.pokemonAbility(convo.get('name'))
+    this.sendIntent(stats, convo);
   }
 }
 exports.PokeConversation = PokeConversation;

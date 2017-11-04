@@ -11,7 +11,7 @@ class PokeFinder {
     this.dex = new Pokedex();
   }
 
-   async findPokemon(payload) {
+  async findPokemon(payload) {
     let pokemon = {}
     const pokeName = payload.message.text.toLowerCase();
     pokemon.basic = await this.pokemonBaseInfo(pokeName);
@@ -30,6 +30,22 @@ class PokeFinder {
 
   pokemonDescription(pokemon) {
     return this.dex.getPokemonSpeciesByName(pokemon.species.name)
+  }
+
+  async pokemonBaseStats(pokemon) {
+    const pokeObj = await this.dex.getPokemonByName(pokemon.toLowerCase());
+
+    let statString = 'Base stats: \n';
+    pokeObj.stats.forEach((stat) => {
+      const statName = stat.stat.name.charAt(0).toUpperCase() + stat.stat.name.slice(1);
+      statString += `\t${statName}: ${stat.base_stat}\n`
+    })
+
+    return statString
+  }
+
+  pokemonAbility(pokemon) {
+
   }
 
 }
