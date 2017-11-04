@@ -30,7 +30,25 @@ bot.on('message', (payload, chat) => {
   } else if (pokemon.includes(payload.message.text.charAt(0).toUpperCase() + payload.message.text.slice(1))) {
     pokeConversation.startConversation(payload, chat)
   } else {
-    chat.say('I\'m sorry I did not understand your request :(.') // TODO: Add help response
+    chat.say({
+      text: 'I am sorry. I\'m only a silly robot and I didn\'t understand what you said. At this point if you send me a Pokemon name I can get some information on them. Try some examples below.',
+      buttons: [{
+          type: 'postback',
+          title: 'Lugia',
+          payload: 'lugia'
+        },
+        {
+          type: 'postback',
+          title: 'Pikachu',
+          payload: 'pikachu'
+        },
+        {
+          type: 'postback',
+          title: 'Mewtwo',
+          payload: 'mewtwo'
+        }
+      ]
+    });
   }
 });
 

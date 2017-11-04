@@ -71,7 +71,25 @@ class PokeConversation {
   }
 
   intent(payload, convo) {
-    // TODO: Incase no callback avaliable. Show Conversation help and then ask intent again.
+    chat.say({
+      text: `I am sorry. I\'m only a silly robot and I didn\'t understand what you said. I can give you more info on ${convo.get(name)}. Try some examples below.`,
+      buttons: [{
+          type: 'postback',
+          title: 'Type Desfenses',
+          payload: 'weakness'
+        },
+        {
+          type: 'postback',
+          title: 'Base Stats',
+          payload: 'stats'
+        },
+        {
+          type: 'postback',
+          title: 'Abilities',
+          payload: 'ability'
+        }
+      ]
+    });
   }
 
   sendIntent(message, convo) {
